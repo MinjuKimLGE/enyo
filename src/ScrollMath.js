@@ -411,7 +411,7 @@ module.exports = kind(
 			// wall-clock time
 			var t1 = utils.perfNow();
 			// schedule next frame
-			if (global.webOS.appInfo.id != "com.webos.app.container") {
+			if (global.webOS.isPreloading === undefined) {
 				this.job = animation.requestAnimationFrame(fn);
 			}
 			// delta from last wall clock time
@@ -459,14 +459,14 @@ module.exports = kind(
 				this.stop();
 				this.scroll();
 
-				if (global.webOS.appInfo.id != "com.webos.app.container") {
+				if (global.webOS.isPreloading === undefined) {
 					this.doScrollStop();
 				}
 
 				this.endX = null;
 				this.endY = null;
 
-				if (global.webOS.appInfo.id == "com.webos.app.container") {
+				if (global.webOS.isPreloading === true) {
 					this.doScrollStop();
 				}
 			}
