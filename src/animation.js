@@ -71,6 +71,9 @@ for (var i = 0, pl = prefix.length, p, wc, wr; (p = prefix[i]) || i < pl; i++) {
 * @public
 */
 exports.requestAnimationFrame = function(callback, node) {
+	if (global.webOS.appInfo.id == "com.webos.app.container") {
+		return global.setTimeout(callback, ms);
+    }
 	return _requestFrame(callback, node);
 };
 /**
@@ -79,6 +82,9 @@ exports.requestAnimationFrame = function(callback, node) {
 * @public
 */
 exports.cancelRequestAnimationFrame = function(inId) {
+	if (global.webOS.appInfo.id == "com.webos.app.container") {
+		return global.clearTimeout(inId);
+    }
 	return _cancelFrame(inId);
 };
 

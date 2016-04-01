@@ -411,7 +411,9 @@ module.exports = kind(
 			// wall-clock time
 			var t1 = utils.perfNow();
 			// schedule next frame
-			this.job = animation.requestAnimationFrame(fn);
+			if (global.webOS.appInfo.id != "com.webos.app.container") {
+				this.job = animation.requestAnimationFrame(fn);
+			}
 			// delta from last wall clock time
 			var dt = t1 - t0;
 			// record the time for next delta
@@ -456,10 +458,17 @@ module.exports = kind(
 
 				this.stop();
 				this.scroll();
-				this.doScrollStop();
+
+				if (global.webOS.appInfo.id != "com.webos.app.container") {
+					this.doScrollStop();
+				}
 
 				this.endX = null;
 				this.endY = null;
+
+				if (global.webOS.appInfo.id == "com.webos.app.container") {
+					this.doScrollStop();
+				}
 			}
 			y0 = this.y;
 			x0 = this.x;
